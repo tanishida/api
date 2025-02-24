@@ -2,9 +2,18 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from services.scraping import scraping_categories
 from services.scraping import scraping_image_url
+from starlette.middleware.cors import CORSMiddleware
 import uvicorn
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
 
 class Item(BaseModel):
     url: str
