@@ -22,4 +22,4 @@ def scraping_image_url(url: str):
     for ul in uls:
         for li in ul.select('li'):
           data.append({"name": str(li.find("img")['alt']), "url": "https://www.dbs-cardgame.com/fw/" + str(li.find("img")['data-src']).lstrip('../../')})
-    return data
+    return {"cards": data}
