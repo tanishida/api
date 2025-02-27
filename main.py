@@ -17,6 +17,8 @@ app.add_middleware(
 
 class Item(BaseModel):
     url: str
+    categoryId: str
+    categoryName: str
 
 @app.get("/api/v1/categories")
 def read_categories():
@@ -25,7 +27,7 @@ def read_categories():
 
 @app.post("/api/v1/image-url")
 def image_url(item: Item):
-    result = scraping_image_url(item.url)
+    result = scraping_image_url(item.url, item.categoryId, item.categoryName)
     return result
 
 if __name__ == "__main__":

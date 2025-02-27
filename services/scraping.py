@@ -14,12 +14,17 @@ def scraping_categories():
             categories.append({"name": li.text, "value": value})
     return {"categories": categories}
 
-def scraping_image_url(url: str):
+def scraping_image_url(url: str, categoryId: str, categoryName: str):
     response = requests.get(url)
     soup = BeautifulSoup(response.content, "html.parser")
     uls = soup.find_all("div", class_="cardCol")
     data = []
     for ul in uls:
         for li in ul.select('li'):
-          data.append({"name": str(li.find("img")['alt']), "url": "https://www.dbs-cardgame.com/fw/" + str(li.find("img")['data-src']).lstrip('../../')})
+            data.append({
+                "name": str(li.find("img")['alt']), 
+                "url": "https://www.dbs-cardgame.com/fw/" + str(li.find("img")['data-src']).lstrip('../../'),
+                "categoryId": categoryId,
+                "categoryName": categoryName
+            })
     return {"cards": data}
